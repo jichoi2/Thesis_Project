@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Manuscript Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="step1">
+        <div class="sidebar">
+            <h2>PROJECT SETUP</h2>
+            
+            <div class="setting-group">
+                <label>Archive Category</label>
+                <select id="typeSelect">
+                    <option value="cs.AI">Computer Science (AI)</option>
+                    <option value="cs.LG">Machine Learning</option>
+                    <option value="bio.MN">Molecular Biology</option>
+                    <option value="quant-ph">Quantum Physics</option>
+                    <option value="eess.SP">Signal Processing</option>
+                    <option value="stat.ML">Statistics (ML)</option>
+                    <option value="math.CO">Combinatorics</option>
+                    <option value="physics.soc-ph">Social Physics</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label>Format Standard</label>
+                <select id="formatSelect">
+                    <option value="IEEE">IEEE Standard</option>
+                    <option value="Nature">Nature Portfolio</option>
+                    <option value="ACM">ACM Transactions</option>
+                    <option value="ArXiv">ArXiv Preprint</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label>Primary Language</label>
+                <select id="langSelect">
+                    <option value="en-US">English (US)</option>
+                    <option value="en-UK">English (UK)</option>
+                    <option value="ko-KR">Korean</option>
+                    <option value="zh-CN">Chinese</option>
+                    <option value="ja-JP">Japanese</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="main-container">
+            <h1>Manuscript Lab</h1>
+            <p>Input your research core and upload supplementary data (graphs/images).</p>
+            
+            <textarea id="userInput" placeholder="Enter research abstract, keywords, or raw data here..." maxlength="4000"></textarea>
+            <div id="charCount" style="text-align:right; font-size:12px; color:#94a3b8; margin-top:6px;">0 / 4000</div>
+
+            <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
+                <label>📷 UPLOAD GRAPH / IMAGE DATA</label>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImagePreview(this)">
+                <div id="previewContainer">
+                    <img id="imgPreview" src="">
+                </div>
+            </div>
+
+            <button class="btn-primary" id="generateBtn" onclick="processSearch()">GENERATE & COMPARE</button>
+        </div>
+    </div>
+
+    <div id="step2" style="display: none;">
+        <div class="step2-header">
+            <button class="btn-back" onclick="goBack(1)">← Back</button>
+            <h1 class="page-title">MODEL COMPARISON</h1>
+        </div>
+        <div class="card-container">
+            <div class="ai-card">
+                <h3>ChatGPT-4o</h3>
+                <div id="gpt-res" class="ai-content"></div>
+                <button class="btn-primary" onclick="finalSelect('GPT')">SELECT MODEL</button>
+            </div>
+            <div class="ai-card">
+                <h3>Gemini 2.5 Pro</h3>
+                <div id="gemini-res" class="ai-content"></div>
+                <button class="btn-primary" onclick="finalSelect('Gemini')">SELECT MODEL</button>
+            </div>
+            <div class="ai-card">
+                <h3>Claude Sonnet 4.6</h3>
+                <div id="claude-res" class="ai-content"></div>
+                <button class="btn-primary" onclick="finalSelect('Claude')">SELECT MODEL</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="step3" style="display: none;">
+        <div class="step3-header">
+            <button class="btn-back-dark" onclick="goBack(2)">← Back</button>
+        </div>
+        <div class="result-layout">
+            <div id="finalView" class="manuscript-viewer"></div>
+            <div class="control-panel">
+                <button class="big-action-btn btn-download" onclick="printStep3()">DOWNLOAD PDF</button>
+                <button class="big-action-btn btn-clipboard" onclick="copyToClipboard()">COPY TO CLIPBOARD</button>
+                <button class="big-action-btn btn-restart" onclick="location.reload()">NEW PROJECT</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
